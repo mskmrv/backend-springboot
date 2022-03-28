@@ -1,8 +1,6 @@
 package ru.mskomarov.tasklist.backendspringboot.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.mskomarov.tasklist.backendspringboot.entity.Priority;
 import ru.mskomarov.tasklist.backendspringboot.repo.PriorityRepository;
 
@@ -20,5 +18,10 @@ public class PriorityController {
     @GetMapping("/all")
     public List<Priority> getPriorityList() {
         return priorityRepository.findAll();
+    }
+
+    @PostMapping("/add")
+    public Priority add(@RequestBody Priority priority) {
+        return priorityRepository.save(priority);
     }
 }
