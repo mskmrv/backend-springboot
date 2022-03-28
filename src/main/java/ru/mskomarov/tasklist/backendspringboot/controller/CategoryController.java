@@ -1,8 +1,6 @@
 package ru.mskomarov.tasklist.backendspringboot.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.mskomarov.tasklist.backendspringboot.entity.Category;
 import ru.mskomarov.tasklist.backendspringboot.repo.CategoryRepository;
 
@@ -20,5 +18,10 @@ public class CategoryController {
     @GetMapping("/all")
     public List<Category> getCategoriyList() {
         return categoryRepository.findAll();
+    }
+
+    @PostMapping("/add")
+    public Category add(@RequestBody Category category) {
+        return categoryRepository.save(category);
     }
 }
