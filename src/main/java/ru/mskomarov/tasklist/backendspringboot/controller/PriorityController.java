@@ -7,6 +7,7 @@ import ru.mskomarov.tasklist.backendspringboot.entity.Priority;
 import ru.mskomarov.tasklist.backendspringboot.repo.PriorityRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/priority")
@@ -54,5 +55,19 @@ public class PriorityController {
         }
 
         return ResponseEntity.ok(priorityRepository.save(priority));
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Priority> findById(@PathVariable Long id) {
+        Priority priority = null;
+
+        try {
+            priority = priorityRepository.findById(id).get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            return new ResponseEntity("id = " + id + " not found", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return ResponseEntity.ok(priority);
     }
 }
