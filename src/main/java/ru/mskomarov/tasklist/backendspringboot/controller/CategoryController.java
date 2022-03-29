@@ -21,8 +21,8 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    public List<Category> getCategoriyList() {
-        return categoryRepository.findAll();
+    public List<Category> findAll() {
+        return categoryRepository.findAllByOrderByTitleAsc();
     }
 
     @PostMapping("/add")
