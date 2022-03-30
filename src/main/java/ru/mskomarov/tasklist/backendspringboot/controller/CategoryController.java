@@ -26,7 +26,7 @@ public class CategoryController {
 
     @GetMapping("/all")
     public List<Category> findAll() {
-        System.out.println();
+        logger.info("\n-------------------------------");
         logger.info("\nCategoryController: findAll()");
 
         return categoryRepository.findAllByOrderByTitleAsc();
@@ -34,7 +34,7 @@ public class CategoryController {
 
     @PostMapping("/add")
     public ResponseEntity<Category> add(@RequestBody Category category) {
-        System.out.println();
+        logger.info("\n-------------------------------");
         logger.info("\nCategoryController: add()");
 
         if (category.getId() != null && category.getId() != 0) {
@@ -50,7 +50,7 @@ public class CategoryController {
 
     @PutMapping("/update")
     public ResponseEntity<Category> update(@RequestBody Category category) {
-        System.out.println();
+        logger.info("\n-------------------------------");
         logger.info("\nCategoryController: update()");
 
         if (category.getId() == null || category.getId() == 0) {
@@ -66,7 +66,7 @@ public class CategoryController {
 
     @GetMapping("/id/{id}")
     public ResponseEntity<Category> findById(@PathVariable Long id) {
-        System.out.println();
+        logger.info("\n-------------------------------");
         logger.info("\nCategoryController: findById()");
 
         Category category = null;
@@ -83,7 +83,7 @@ public class CategoryController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
-        System.out.println();
+        logger.info("\n-------------------------------");
         logger.info("\nCategoryController: delete()");
 
         try {
@@ -98,7 +98,7 @@ public class CategoryController {
 
     @PostMapping("/search")
     public ResponseEntity<List<Category>> search(@RequestBody CategorySearchValues categorySearchValues) {
-        System.out.println();
+        logger.info("\n-------------------------------");
         logger.info("\nCategoryController: search()");
 
         return ResponseEntity.ok(categoryRepository.findByTitle(categorySearchValues.getText()));
