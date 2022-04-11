@@ -11,6 +11,7 @@ import ru.mskomarov.tasklist.backendspringboot.entity.Task;
 import ru.mskomarov.tasklist.backendspringboot.repo.TaskRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/task")
@@ -35,7 +36,14 @@ public class TaskController {
         logger.info("\n-------------------------------");
         logger.info("\nTaskController: findById()");
 
-        return ResponseEntity.ok(taskRepository.findById(id).get());
+        Task task = null;
+        try {
+            task = taskRepository.findById(id).get();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            return new ResponseEntity("id = " + id + " not found", HttpStatus.NOT_ACCEPTABLE);
+        }
+        return ResponseEntity.ok(task);
     }
 
     @PostMapping("/add")
