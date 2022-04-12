@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.mskomarov.tasklist.backendspringboot.entity.Task;
 import ru.mskomarov.tasklist.backendspringboot.repo.TaskRepository;
+import ru.mskomarov.tasklist.backendspringboot.search.TaskSearchValues;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -91,5 +92,17 @@ public class TaskController {
             return new ResponseEntity("id = " + id + " not found", HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Task>> search(@RequestBody TaskSearchValues taskSearchValues) {
+        logger.info("\n-------------------------------");
+        logger.info("\nTaskController: search()");
+
+        return ResponseEntity.ok(taskRepository.findByParams(
+                taskSearchValues.getTitle(),
+                taskSearchValues.getCompleted(),
+                taskSearchValues.getPriorityId(),
+                taskSearchValues.getCategoryId()));
     }
 }
