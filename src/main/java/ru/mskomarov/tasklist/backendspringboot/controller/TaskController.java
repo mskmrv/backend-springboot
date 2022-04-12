@@ -99,10 +99,11 @@ public class TaskController {
         logger.info("\n-------------------------------");
         logger.info("\nTaskController: search()");
 
-        return ResponseEntity.ok(taskRepository.findByParams(
-                taskSearchValues.getTitle(),
-                taskSearchValues.getCompleted(),
-                taskSearchValues.getPriorityId(),
-                taskSearchValues.getCategoryId()));
+        String title = taskSearchValues.getTitle();
+        Integer completed = taskSearchValues.getCompleted();
+        Long priorityId = taskSearchValues.getPriorityId();
+        Long categoryId = taskSearchValues.getCategoryId();
+
+        return ResponseEntity.ok(taskRepository.findByParams(title, completed, priorityId, categoryId));
     }
 }
