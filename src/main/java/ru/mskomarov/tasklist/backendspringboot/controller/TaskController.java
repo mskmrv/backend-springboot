@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -95,7 +98,7 @@ public class TaskController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Task>> search(@RequestBody TaskSearchValues taskSearchValues) {
+    public ResponseEntity<Page<Task>> search(@RequestBody TaskSearchValues taskSearchValues) {
         logger.info("\n-------------------------------");
         logger.info("\nTaskController: search()");
 
@@ -103,7 +106,18 @@ public class TaskController {
         Integer completed = taskSearchValues.getCompleted();
         Long priorityId = taskSearchValues.getPriorityId();
         Long categoryId = taskSearchValues.getCategoryId();
+        String sortColumn = taskSearchValues.getSortColumn();
+        String sortDirection = taskSearchValues.getSortDirection();
 
-        return ResponseEntity.ok(taskRepository.findByParams(title, completed, priorityId, categoryId));
+        Integer pageNumber = taskSearchValues.getPageNumber();
+        Integer pageSize = taskSearchValues.getPageSize();
+
+        Sort.Direction direction = sortDirection == null || sortDirection.trim().length() == 0 || sortDirection.trim().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortColumn);
+
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
+        Page result = taskRepository.findByParams(title, completed, priorityId, categoryId, pageRequest);
+
+        return ResponseEntity.ok(result);
     }
 }
