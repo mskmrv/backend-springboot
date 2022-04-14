@@ -3,10 +3,12 @@ package ru.mskomarov.tasklist.backendspringboot.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import ru.mskomarov.tasklist.backendspringboot.entity.Task;
 
 import java.util.List;
 
+@Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("SELECT p FROM Task p where " +
