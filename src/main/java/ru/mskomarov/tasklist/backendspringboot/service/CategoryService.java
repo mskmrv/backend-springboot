@@ -16,10 +16,6 @@ public class CategoryService {
         this.repository = repository;
     }
 
-    public List<Category> findAll() {
-        return repository.findAll();
-    }
-
     public Category add(Category category) {
         return repository.save(category);
     }
