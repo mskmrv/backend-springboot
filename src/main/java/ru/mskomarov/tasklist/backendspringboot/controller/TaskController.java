@@ -23,7 +23,7 @@ public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
     private final TaskRepository taskRepository;
 
-    public TaskController(TaskRepository taskRepository, ConfigurableEnvironment environment) {
+    public TaskController(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
