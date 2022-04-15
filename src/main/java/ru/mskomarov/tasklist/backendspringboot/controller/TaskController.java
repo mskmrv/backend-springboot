@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.mskomarov.tasklist.backendspringboot.entity.Task;
-import ru.mskomarov.tasklist.backendspringboot.repo.TaskRepository;
 import ru.mskomarov.tasklist.backendspringboot.search.TaskSearchValues;
 import ru.mskomarov.tasklist.backendspringboot.service.TaskService;
 
